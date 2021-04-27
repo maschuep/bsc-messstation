@@ -11,3 +11,4 @@ const notifier = new NotificationService();
 const blink = new BlinkService();
 
 setInterval(notifier.notify, 1000, storage)
+blink.measure()

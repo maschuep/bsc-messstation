@@ -1,16 +1,16 @@
 import { StorageService } from "./storage.service";
-import * as wiringpi from "wiring-pi"
+import { Gpio } from 'onoff'
 
 /**
  * registers every blink and saves it into storage
  */
 export class BlinkService{
-    test(){
-        console.log('hello from Blinkservice')
+
+    private _stop: boolean = false;
+
+    public measure(){
+        const input = new Gpio(0, 'in')
     }
 
 
-    measure(){
-        wiringpi.wiringPiSetup();
-    }
 }
