@@ -5,10 +5,18 @@ import dotenv from 'dotenv'
 import { Measurement } from './models/measurement.model';
 
 dotenv.config();
+const intervall: number = Number.parseInt(process.env.measurement_intervall, 10)
 
 const storage = new StorageService();
 const notifier = new NotificationService();
 const blink = new BlinkService();
 
 setInterval(notifier.notify, 1000, storage)
-blink.measure()
+
+if(process.env.environment === 'dev'){
+    blink.emulate(intervall, storage);
+}else if(process.env.environment === 'rpi'){
+    blink.measure();
+}else{
+    throw new Error('environment must be "dev" or "rpi"')
+}
