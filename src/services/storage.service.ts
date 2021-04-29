@@ -16,8 +16,8 @@ export class StorageService {
         this._sequelize.sync({alter: true}).catch(err => console.log(err));
     }
 
-    createMeasurement(timestamp: number, blinkDuration: number): Promise<Measurement> {
-        return Measurement.create({ timestamp, blinkDuration })
+    createMeasurement(timestamp: number, blinkDuration: number) {
+        Measurement.create({ timestamp, blinkDuration }).catch(err => console.log(err))
     }
 
     getAllUntransmitted(): Promise<Measurement[]> {
