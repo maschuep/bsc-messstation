@@ -21,12 +21,12 @@ export class BlinkService {
                 data.timestamp = start ;
                 ledOn = true;
             } else if (value === 0 && ledOn) {
-                let since = 0;
-                if(stop !== -1) since = start - stop
+                //let since = 0;
+                //if(stop !== -1) since = start - stop
                 stop = new Date().valueOf();
                 data.blinkDuration = stop - start;
-                // storage.createMeasurement(data)
-                console.log(data, since)
+                storage.createMeasurement(data)
+                //console.log(data, since)
                 ledOn = false;
             }
         })
