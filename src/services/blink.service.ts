@@ -22,7 +22,7 @@ export class BlinkService {
             } else if (value === 0 && ledOn) {
 
                 stop = new Date().valueOf();
-                data.blinkDuration += stop - start;
+                data.blinkDuration = stop - start;
                 console.log(data)
                 ledOn = false;
             }
