@@ -27,7 +27,7 @@ class BlinkService {
                 stop = new Date().valueOf();
                 data.blinkDuration = stop - start;
                 // storage.createMeasurement(data)
-                console.log(`${data}, ${since}`);
+                console.log(data, since);
                 ledOn = false;
             }
         });
