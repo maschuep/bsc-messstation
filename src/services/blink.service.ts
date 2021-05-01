@@ -8,7 +8,8 @@ export class BlinkService {
 
     public measure() {
         const photo = new Gpio(17, 'in', 'both', { debounceTimeout: 10 })
-        let start, stop = -1;
+        let start = -1;
+        let stop = -1;
         let ledOn = false;
         let data = '';
         photo.watch((err, value) => {
