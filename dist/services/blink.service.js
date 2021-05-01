@@ -22,7 +22,7 @@ class BlinkService {
             }
             else if (value === 0 && ledOn) {
                 stop = new Date().valueOf();
-                data.blinkDuration += stop - start;
+                data.blinkDuration = stop - start;
                 console.log(data);
                 ledOn = false;
             }
@@ -35,7 +35,7 @@ class BlinkService {
         setInterval(this._generateMeasurements, intervall, storage);
     }
     _generateMeasurements(storage) {
-        storage.createMeasurement(new Date().valueOf(), Math.floor(Math.random() * 50));
+        storage.createMeasurementFromValues(new Date().valueOf(), Math.floor(Math.random() * 50));
     }
 }
 exports.BlinkService = BlinkService;

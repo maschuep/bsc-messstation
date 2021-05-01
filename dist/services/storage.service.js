@@ -13,7 +13,10 @@ class StorageService {
         measurement_model_1.Measurement.initialize(this._sequelize);
         this._sequelize.sync({ alter: true }).catch(err => console.log(err));
     }
-    createMeasurement(timestamp, blinkDuration) {
+    createMeasurement(measurement) {
+        measurement_model_1.Measurement.create(measurement).catch(err => console.log(err));
+    }
+    createMeasurementFromValues(timestamp, blinkDuration) {
         measurement_model_1.Measurement.create({ timestamp, blinkDuration }).catch(err => console.log(err));
     }
     getAllUntransmitted() {
