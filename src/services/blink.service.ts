@@ -1,5 +1,6 @@
 import { StorageService } from "./storage.service";
 import { Gpio, Low, High } from 'onoff';
+import { MeasurmentAttributes } from "../models/measurement.model";
 
 /**
  * registers every blink and saves it into storage
@@ -11,21 +12,18 @@ export class BlinkService {
         let start = -1;
         let stop = -1;
         let ledOn = false;
-        let data = '';
+        const data: MeasurmentAttributes ={timestamp:-1, blinkDuration:-1};
         photo.watch((err, value) => {
             if (err) throw err;
             if (value === 1 && !ledOn) {
                 start = new Date().valueOf();
-                data += start + ', ';
+                data.timestamp = start ;
                 ledOn = true;
             } else if (value === 0 && ledOn) {
-                if (stop !== -1) {
-                    data += `${start - stop}, `
-                }
+
                 stop = new Date().valueOf();
-                data += `${stop - start}`
+                data.blinkDuration += stop - start;
                 console.log(data)
-                data=''
                 ledOn = false;
             }
         })
