@@ -6,8 +6,8 @@ const onoff_1 = require("onoff");
  * registers every blink and saves it into storage
  */
 class BlinkService {
-    measure() {
-        const photo = new onoff_1.Gpio(17, 'in', 'both', { debounceTimeout: 10 });
+    measure(storage) {
+        const photo = new onoff_1.Gpio(17, 'in', 'both', { debounceTimeout: 2 });
         let start = -1;
         let stop = -1;
         let ledOn = false;
@@ -23,7 +23,7 @@ class BlinkService {
             else if (value === 0 && ledOn) {
                 stop = new Date().valueOf();
                 data.blinkDuration = stop - start;
-                console.log(data);
+                storage.createMeasurement(data);
                 ledOn = false;
             }
         });

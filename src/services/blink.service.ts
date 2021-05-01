@@ -7,8 +7,9 @@ import { MeasurmentAttributes } from "../models/measurement.model";
  */
 export class BlinkService {
 
-    public measure() {
-        const photo = new Gpio(17, 'in', 'both', { debounceTimeout: 10 })
+
+    public measure(storage:StorageService) {
+        const photo = new Gpio(17, 'in', 'both', { debounceTimeout: 2 })
         let start = -1;
         let stop = -1;
         let ledOn = false;
@@ -23,7 +24,7 @@ export class BlinkService {
 
                 stop = new Date().valueOf();
                 data.blinkDuration = stop - start;
-                console.log(data)
+                storage.createMeasurement(data)
                 ledOn = false;
             }
         })

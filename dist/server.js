@@ -18,7 +18,7 @@ if (process.env.ENVIRONMENT === 'dev') {
     blink.emulate(intervall, storage);
 }
 else if (process.env.ENVIRONMENT === 'rpi') {
-    blink.measure();
+    blink.measure(storage);
 }
 else {
     throw new Error('environment must be "dev" or "rpi"');
