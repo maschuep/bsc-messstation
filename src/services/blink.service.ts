@@ -9,7 +9,7 @@ export class BlinkService {
 
 
     public measure(storage:StorageService) {
-        const photo = new Gpio(17, 'in', 'both', { debounceTimeout: 2 })
+        const photo = new Gpio(17, 'in', 'both', { debounceTimeout: 30 })
         let start = -1;
         let stop = -1;
         let ledOn = false;
@@ -21,10 +21,12 @@ export class BlinkService {
                 data.timestamp = start ;
                 ledOn = true;
             } else if (value === 0 && ledOn) {
-
+                let since = 0;
+                if(stop !== -1) since = start - stop
                 stop = new Date().valueOf();
                 data.blinkDuration = stop - start;
-                storage.createMeasurement(data)
+                // storage.createMeasurement(data)
+                console.log(`${data}, ${since}`)
                 ledOn = false;
             }
         })
