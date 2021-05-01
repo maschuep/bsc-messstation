@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { Measurement } from '../models/measurement.model';
+import { Measurement, MeasurmentAttributes } from '../models/measurement.model';
 export class StorageService {
 
     private _sequelize;
@@ -16,7 +16,11 @@ export class StorageService {
         this._sequelize.sync({alter: true}).catch(err => console.log(err));
     }
 
-    createMeasurement(timestamp: number, blinkDuration: number) {
+    createMeasurement(measurement: MeasurmentAttributes){
+        Measurement.create(measurement).catch(err => console.log(err))
+    }
+
+    createMeasurementFromValues(timestamp: number, blinkDuration: number) {
         Measurement.create({ timestamp, blinkDuration }).catch(err => console.log(err))
     }
 

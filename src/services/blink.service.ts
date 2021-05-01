@@ -37,6 +37,6 @@ export class BlinkService {
     }
 
     private _generateMeasurements(storage: StorageService) {
-        storage.createMeasurement(new Date().valueOf(), Math.floor(Math.random() * 50))
+        storage.createMeasurementFromValues(new Date().valueOf(), Math.floor(Math.random() * 50))
     }
 }
