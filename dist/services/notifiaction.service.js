@@ -36,7 +36,7 @@ class NotificationService {
                     console.error(new Date().toISOString(), err);
                 });
                 req.write(data);
-                req.on('finish', () => console.log(new Date().toISOString(), `sent ${all.length}`));
+                req.on('finish', () => console.log(new Date().toISOString(), `sent: ${all.length} wh, size: ${data.length * 16 / 8} B`));
                 req.end();
             }
         });
