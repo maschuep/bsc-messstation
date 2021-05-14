@@ -23,4 +23,5 @@ else if (process.env.ENVIRONMENT === 'rpi') {
 else {
     throw new Error('environment must be "dev" or "rpi"');
 }
+console.log('station started ...');
 //# sourceMappingURL=server.js.map
