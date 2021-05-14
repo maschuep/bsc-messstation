@@ -20,3 +20,5 @@ if(process.env.ENVIRONMENT === 'dev'){
 }else{
     throw new Error('environment must be "dev" or "rpi"')
 }
+
+console.log('station started ...')
