@@ -20,13 +20,13 @@ class HttpNotificationService {
     }
     notifyAggregated(storage) {
         storage.getAllUntransmitted().then(all => {
-            const intervall = 1800;
+            const intervall = Number.parseInt(process.env.MEASUREMENT_INTERVALL, 10);
             if (!all || all.length <= 0)
                 return;
             const startValue = all[0];
             const aggregated = all.reduce((acc, curr) => {
                 const latestMeasurement = acc.pop();
-                if (latestMeasurement.timestamp + intervall > curr.timestamp) {
+                if (latestMeasurement.timestamp + intervall >= curr.timestamp) {
                     latestMeasurement.wh++;
                     acc.push(latestMeasurement);
                 }
@@ -36,7 +36,6 @@ class HttpNotificationService {
                 }
                 return acc;
             }, [{ timestamp: startValue.timestamp, wh: 0 }]);
-            console.log(aggregated);
             HttpNotificationService._sendData(all, JSON.stringify(aggregated), storage);
         });
     }
