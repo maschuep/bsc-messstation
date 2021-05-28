@@ -25,7 +25,7 @@ export class StorageService {
     }
 
     getAllUntransmitted(): Promise<Measurement[]> {
-        return Measurement.findAll({where: {transmitted: false}})
+        return Measurement.findAll({where: {transmitted: false}, order: [['timestamp','ASC']]})
         .then(ms => {
             ms.forEach(m => {
                 m.transmitted = true;

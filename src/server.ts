@@ -1,5 +1,5 @@
 import { BlinkService } from './services/blink.service';
-import { NotificationService } from './services/notifiaction.service';
+import { HttpNotificationService } from './services/http-notifiaction.service';
 import { StorageService } from './services/storage.service'
 import dotenv from 'dotenv';
 
@@ -8,10 +8,10 @@ const intervall: number = Number.parseInt(process.env.MEASUREMENT_INTERVALL, 10)
 const notificationIntervall: number = Number.parseInt(process.env.NOTIFICATION_INTERVALL, 10)
 
 const storage = new StorageService();
-const notifier = new NotificationService();
+const notifier = new HttpNotificationService();
 const blink = new BlinkService();
 
-setInterval(notifier.notify, notificationIntervall, storage)
+setInterval(notifier.notifyAggregated, notificationIntervall, storage)
 
 if(process.env.ENVIRONMENT === 'dev'){
     blink.emulate(intervall, storage);

@@ -20,7 +20,7 @@ class StorageService {
         measurement_model_1.Measurement.create({ timestamp, blinkDuration }).catch(err => console.log(err));
     }
     getAllUntransmitted() {
-        return measurement_model_1.Measurement.findAll({ where: { transmitted: false } })
+        return measurement_model_1.Measurement.findAll({ where: { transmitted: false }, order: [['timestamp', 'ASC']] })
             .then(ms => {
             ms.forEach(m => {
                 m.transmitted = true;
