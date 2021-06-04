@@ -32,6 +32,9 @@ class BscBackendService {
             req.on('finish', (a) => {
                 resolve(a);
             });
+            req.on('on', (a) => {
+                resolve(a);
+            });
             req.end();
         });
     }
