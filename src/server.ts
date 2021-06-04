@@ -2,6 +2,7 @@ import { BlinkService } from './services/blink.service';
 import { HttpNotificationService } from './services/http-notifiaction.service';
 import { StorageService } from './services/storage.service'
 import dotenv from 'dotenv';
+import { BscBackendService } from './services/bsc-backend.service';
 
 dotenv.config();
 const intervall: number = Number.parseInt(process.env.MEASUREMENT_INTERVALL, 10)
