@@ -24,17 +24,27 @@ class BscBackendService {
                 res.on("error", (err) => {
                     reject(err);
                 });
-            });
-            req.on("error", (err) => {
-                reject(err);
+                res.on("end", () => {
+                    if (res.statusCode !== 201) {
+                        console.log('zäggs');
+                        Promise.reject(`Error: ${res.statusCode}`);
+                    }
+                    console.log(res.statusCode);
+                    resolve('');
+                });
+            })
+                .on("error", (err) => {
+                reject(new Error(err.toString()));
+            })
+                .on('response', (res) => {
+                if (res.statusCode !== 201) {
+                    reject(new Error(res.statusCode.toString()));
+                }
+            })
+                .on('finish', (done) => {
+                resolve(done);
             });
             req.write(data);
-            req.on('finish', (a) => {
-                resolve(a);
-            });
-            req.on('on', (a) => {
-                resolve(a);
-            });
             req.end();
         });
     }

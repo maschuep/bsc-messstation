@@ -1,4 +1,3 @@
-import { Measurement, MeasurmentAttributes } from "../models/measurement.model";
 import { StorageService } from "./storage.service";
 import { BscBackendService } from "./bsc-backend.service";
 
@@ -12,11 +11,11 @@ export class HttpNotificationService {
             if (all && all.length > 0) {
                 const data = JSON.stringify(all);
                 BscBackendService.sendData(JSON.stringify(all))
-                .then(() => console.log(`sent: ${all.length} wh`))
-                .catch((err) => {
-                    storage.transmissionFailed(all);
-                    console.log(new Date().toLocaleString(), err)
-                });
+                    .then(() => console.log(`sent: ${all.length} wh`))
+                    .catch((err) => {
+                        storage.transmissionFailed(all);
+                        console.log(new Date().toLocaleString(), err)
+                    });
             }
         })
     }
@@ -38,12 +37,16 @@ export class HttpNotificationService {
                 }
                 return acc;
             }, [{ timestamp: startValue.timestamp, wh: 0 }])
+
             BscBackendService.sendData(JSON.stringify(aggregated))
-                .then(() => console.log(`${new Date().toLocaleString()} sent: ${all.length} wh`))
+                .then((ans) => console.log(`${new Date().toLocaleString()} sent: ${all.length} wh`))
                 .catch((err) => {
                     storage.transmissionFailed(all);
-                    console.log(new Date().toLocaleString, err)
+                    console.log(new Date().toLocaleString(), err)
                 })
-        })
+
+
+
+        }).catch(err => { console.log(err) })
     }
 }

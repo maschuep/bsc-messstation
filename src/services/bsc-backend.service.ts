@@ -1,12 +1,10 @@
-
 import http from 'http'
 import { JWTService } from "./jwt.service";
 
 export class BscBackendService {
 
-
-
     static sendData(data: string): Promise<string> {
+
         return new Promise((resolve, reject) => {
             const options = {
                 hostname: process.env.BACKEND_URL,
@@ -24,19 +22,32 @@ export class BscBackendService {
                 res.on("error", (err) => {
                     reject(err)
                 });
+                res.on("end", () => {
+                    if (res.statusCode !== 201) {
+                        console.log('zäggs')
+                        Promise.reject(`Error: ${res.statusCode}`);
+                    }
+                    console.log(res.statusCode);
+                    resolve('')
+                })
             })
+                .on("error", (err) => {
+                    reject(new Error(err.toString()))
 
-            req.on("error", (err) => {
-                reject(err)
-            })
+                })
+                .on('response', (res) => {
+                    if (res.statusCode !== 201) {
+                        reject(new Error(res.statusCode.toString()));
 
+                    }
+                })
+                .on('finish', (done) => {
+
+                    resolve(done)
+
+
+                })
             req.write(data);
-            req.on('finish', (a) => {
-                resolve(a);
-            });
-            req.on('on', (a) => {
-                resolve(a);
-            });
             req.end();
         })
     }

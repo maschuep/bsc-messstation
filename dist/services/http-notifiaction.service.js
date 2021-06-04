@@ -38,12 +38,12 @@ class HttpNotificationService {
                 return acc;
             }, [{ timestamp: startValue.timestamp, wh: 0 }]);
             bsc_backend_service_1.BscBackendService.sendData(JSON.stringify(aggregated))
-                .then(() => console.log(`${new Date().toLocaleString()} sent: ${all.length} wh`))
+                .then((ans) => console.log(`${new Date().toLocaleString()} sent: ${all.length} wh`))
                 .catch((err) => {
                 storage.transmissionFailed(all);
-                console.log(new Date().toLocaleString, err);
+                console.log(new Date().toLocaleString(), err);
             });
-        });
+        }).catch(err => { console.log(err); });
     }
 }
 exports.HttpNotificationService = HttpNotificationService;
