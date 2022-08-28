@@ -5,6 +5,7 @@ export class BscBackendService {
 
     static sendData(data: string): Promise<string> {
 
+        // returning a Promise enables the using class to react on errors of transmission
         return new Promise((resolve, reject) => {
             
             // read the config from the config file
