@@ -6,6 +6,8 @@ export class BscBackendService {
     static sendData(data: string): Promise<string> {
 
         return new Promise((resolve, reject) => {
+            
+            // read the config from the config file
             const options = {
                 hostname: process.env.BACKEND_URL,
                 port: process.env.BACKEND_PORT,
@@ -18,6 +20,7 @@ export class BscBackendService {
                 }
             }
 
+            // create the request and define success and error scenarios
             const req = http.request(options, res => {
                 res.on("error", (err) => {
                     reject(err)
@@ -47,7 +50,10 @@ export class BscBackendService {
 
 
                 })
+            
+            //send request
             req.write(data);
+            // finish request
             req.end();
         })
     }
