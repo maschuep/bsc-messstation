@@ -4,10 +4,8 @@ import { JWTService } from "./jwt.service";
 export class BscBackendService {
 
     static sendData(data: string): Promise<string> {
-
         // returning a Promise enables the using class to react on errors of transmission
         return new Promise((resolve, reject) => {
-            
             // read the config from the config file
             const options = {
                 hostname: process.env.BACKEND_URL,
@@ -20,7 +18,6 @@ export class BscBackendService {
                     'Authorization': `Bearer ${JWTService.tokenForMeasurements()}`
                 }
             }
-
             // create the request and define success and error scenarios
             const req = http.request(options, res => {
                 res.on("error", (err) => {
@@ -41,15 +38,13 @@ export class BscBackendService {
                 })
                 .on('response', (res) => {
                     if (res.statusCode !== 201) {
+                        //request failed and data could not be sent
                         reject(new Error(res.statusCode.toString()));
-
                     }
                 })
                 .on('finish', (done) => {
-
+                    // request is succesfully tranmitted
                     resolve(done)
-
-
                 })
             
             //send request
